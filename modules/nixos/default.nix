@@ -24,7 +24,7 @@
 
   networking.networkmanager.enable = true;
 
-  i18n.defaultLocale = true;
+  i18n.defaultLocale = "de_DE.UTF-8";
 
   console = {
     keyMap = "de";
