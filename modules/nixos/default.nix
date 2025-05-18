@@ -49,10 +49,8 @@
       "dialout"
     ];
     openssh.authorizedKeys.keys = [
-      "sk-ecdsa-sha2-nistp256@openssh.com 
-      AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHCrM09d4P9jT4bSwAKREEKfOFfX905hCIer/7SIGSB4GIFGvJ130efh1K7gpHKjLgiooPrQKzb7ljBRT1TGZ60AAAAEc3NoOg=="
-      "sk-ecdsa-sha2-nistp256@openssh.com 
-      AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBH95/J3jLiUrKVVj9NfwChj8UdyEeh5KtM1xLZ7+K0NKC9eEG/VJyYf/0j1WK4NDFEshj6cIY2Iq9VTVYESpnxwAAAAEc3NoOg=="
+      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHCrM09d4P9jT4bSwAKREEKfOFfX905hCIer/7SIGSB4GIFGvJ130efh1K7gpHKjLgiooPrQKzb7ljBRT1TGZ60AAAAEc3NoOg=="
+      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBH95/J3jLiUrKVVj9NfwChj8UdyEeh5KtM1xLZ7+K0NKC9eEG/VJyYf/0j1WK4NDFEshj6cIY2Iq9VTVYESpnxwAAAAEc3NoOg=="
     ];
     hashedPasswordFile = config.sops.secrets.hashedPassword.path;
   };

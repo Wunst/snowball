@@ -32,6 +32,7 @@
           ./modules/nixos
           ./systems/${hostname}
           ./sops.nix
+          ./allowUnfree.nix
         ];
       };
     in {
