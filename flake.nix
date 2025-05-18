@@ -8,7 +8,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: let
+  outputs = { nixpkgs, home-manager, sops-nix, ... }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
@@ -19,6 +19,7 @@
         just
         sops
         ssh-to-age
+        age-plugin-fido2-hmac
       ];
     };
 
@@ -27,6 +28,9 @@
         inherit system;
         modules = [
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
+          ./modules/nixos
+          ./sops.nix
         ];
       };
     in {
