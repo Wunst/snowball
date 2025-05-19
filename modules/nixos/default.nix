@@ -1,4 +1,8 @@
 { config, pkgs, ... }: {
+  imports = [
+    ./graphical
+  ];
+
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
