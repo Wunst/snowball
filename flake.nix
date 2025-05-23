@@ -29,6 +29,11 @@
         modules = [
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
+
+          {
+            nixpkgs.overlays = import ./overlays;
+          }
+
           ./modules/nixos
           ./systems/${hostname}
           ./sops.nix
