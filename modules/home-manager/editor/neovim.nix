@@ -156,6 +156,12 @@
             virtual_text = false, -- disable builtin error display
           }
         ''; }
+
+      { plugin = render-markdown-nvim;
+        type = "lua";
+        config = /* lua */ ''
+          require("render-markdown").setup{}
+        ''; }
     ];
   };
 
