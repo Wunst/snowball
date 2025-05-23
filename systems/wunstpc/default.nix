@@ -1,6 +1,8 @@
 { ... }: {
   imports = [ ./hardware-configuration.nix ];
 
+  networking.hostName = "wunstpc";
+
   fileSystems = {
     "/".options = [ "compress=zstd" ];
     "/home".options = [ "compress=zstd" ];
