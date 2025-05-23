@@ -24,5 +24,9 @@
     vlc
     ffmpeg-full
     spotify
+
+    # Scientific computing.
+    wxmaxima
+    octaveFull
   ];
 }
