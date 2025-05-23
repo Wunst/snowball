@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, sops, ... }: {
   imports = [
     ./editor
     ./graphical
@@ -51,6 +51,9 @@
       };
     };
   };
+
+  # Install GitHub token from sops.
+  home.file.".config/gh/hosts.yml".source = config.lib.file.mkOutOfStoreSymlink sops.secrets."gh/hosts.yml".path;
 
   home.stateVersion = "24.11";
 }

@@ -62,6 +62,10 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    # Pass secrets to home-manager.
+    extraSpecialArgs = {
+      sops = config.sops;
+    };
     users.ben = import ../home-manager;
   };
 
