@@ -14,7 +14,6 @@
     ripgrep
     fastfetch
     inetutils
-    gh
   ];
 
   programs = {
@@ -50,6 +49,9 @@
         init.defaultBranch = "main";
       };
     };
+
+    # Enable GitHub credential helper.
+    gh.enable = true;
   };
 
   # Install GitHub token from sops.
