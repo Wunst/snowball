@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   # We don't manage passwords here as Gmail requires weird OAuth anyways.
   # and I use them for other internal purposes too
   accounts.email.accounts = {
@@ -53,6 +53,7 @@
 
   programs.thunderbird = {
     enable = true;
+    package = pkgs.thunderbird-bin;
     # TODO: Install extensions, dictionary
     profiles.default = {
       isDefault = true;
