@@ -2,6 +2,7 @@
   imports = [
     ./kitty.nix
     ./firefox.nix
+    ./email.nix
   ];
 
   home.packages = with pkgs; [
