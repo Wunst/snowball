@@ -29,5 +29,9 @@
     # Scientific computing.
     wxmaxima
     octaveFull
+
+    # LaTeX.
+    texliveFull
+    enter-tex
   ];
 }
