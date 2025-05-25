@@ -154,6 +154,7 @@
           require("lsp_lines").setup()
           vim.diagnostic.config{
             virtual_text = false, -- disable builtin error display
+            virtual_lines = true,
           }
         ''; }
 
@@ -164,6 +165,4 @@
         ''; }
     ];
   };
-
-  home.shellAliases.v = "nvim";
 }
