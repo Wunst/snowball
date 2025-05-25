@@ -53,7 +53,6 @@
 
   programs.thunderbird = {
     enable = true;
-    package = pkgs.thunderbird-bin;
     # TODO: Install extensions, dictionary
     profiles.default = {
       isDefault = true;
