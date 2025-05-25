@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./gaming.nix
+  ];
+
   security.rtkit.enable = true;
 
   services = {

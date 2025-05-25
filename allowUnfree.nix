@@ -6,6 +6,8 @@
       "nvidia-settings"
       "hplip"
       "spotify"
+      "steam"
+      "steam-unwrapped"
       "synology-drive-client"
     ];
 }
