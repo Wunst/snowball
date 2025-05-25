@@ -16,6 +16,7 @@
   in {
     devShells.${system}.default = with pkgs; mkShell {
       buildInputs = [
+        nil
         just
         sops
         ssh-to-age
