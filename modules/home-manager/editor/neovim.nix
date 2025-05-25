@@ -165,4 +165,6 @@
         ''; }
     ];
   };
+
+  home.shellAliases.v = "nvim";
 }
