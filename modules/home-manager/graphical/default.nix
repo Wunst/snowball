@@ -3,6 +3,7 @@
     ./kitty.nix
     ./firefox.nix
     ./email.nix
+    ./gaming.nix
   ];
 
   home.packages = with pkgs; [
