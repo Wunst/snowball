@@ -3,9 +3,12 @@ keys:
     age1tcwe6per5yzp7jdxsu95lcxhgqmc7skmutzm6fv6653g9xhexflsfdj7fr
   - &wunstpc >-
     age1q2ddl3x2jqhfgp44je4vd7069p5ehuwy2wfvhgw4dn8z27vnnp8s84eep3
+  - &hpeqlp >-
+    age1d9xevvu4hren5n4yc20yd600eclu7j0k3xvd2mvjfw8570kyddxs5dcrcl
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *ben
       - *wunstpc
+      - *hpeqlp

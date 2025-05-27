@@ -43,6 +43,7 @@
       };
     in {
       wunstpc = mkSystem "x86_64-linux" "wunstpc";
+      hpeqlp = mkSystem "x86_64-linux" "hpeqlp";
     };
   };
 }
