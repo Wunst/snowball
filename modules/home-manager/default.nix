@@ -2,6 +2,7 @@
   imports = [
     ./editor
     ./graphical
+    ./development
   ];
 
   home.username = "ben";
