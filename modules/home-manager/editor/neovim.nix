@@ -84,6 +84,7 @@
           lspconfig.ts_ls.setup{}
           lspconfig.clangd.setup{}
           lspconfig.gdscript.setup{}
+          lspconfig.jdtls.setup{}
 
           vim.keymap.set("n", "gd", vim.lsp.buf.definition)
           vim.keymap.set("n", "gD", vim.lsp.buf.references) -- shows references in quickfix-list
