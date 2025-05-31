@@ -7,7 +7,11 @@
       address = "matthiesbe@gmail.com";
       realName = "Ben Matthies";
       flavor = "gmail.com";
-      # TODO: Configure GPG.
+      gpg = {
+        key = "015E6B992731C5B8";
+        encryptByDefault = true;
+        signByDefault = true;
+      };
       signature = {
         showSignature = "append";
         delimiter = "~*~-~*~-~*~-~*~";
@@ -85,9 +89,12 @@
 
   programs.thunderbird = {
     enable = true;
-    # TODO: Install extensions, dictionary
     profiles.default = {
       isDefault = true;
+      settings = {
+        "intl.locale.requested" = "de";
+        "extensions.ui.dictionary.hidden" = true; # Disable dictionary.
+      };
     };
   };
 }
