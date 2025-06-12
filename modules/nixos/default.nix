@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
     ./graphical
+    ./wireshark.nix
   ];
 
   boot = {
@@ -51,6 +52,7 @@
       "libvirtd"
       "docker"
       "dialout"
+      "wireshark"
     ];
     openssh.authorizedKeys.keys = [
       "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHCrM09d4P9jT4bSwAKREEKfOFfX905hCIer/7SIGSB4GIFGvJ130efh1K7gpHKjLgiooPrQKzb7ljBRT1TGZ60AAAAEc3NoOg=="
