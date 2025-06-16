@@ -8,7 +8,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      # TODO: font configuration
+      font = config.sn-fonts.monospace;
       settings = {
         cursor_trail = 50;
         window_padding_width = 24;
