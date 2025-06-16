@@ -34,7 +34,7 @@ in {
           init.defaultBranch = "main";
 
           user = {
-            username = cfg.user.name;
+            name = cfg.user.name;
             email = cfg.user.email;
           };
         };
