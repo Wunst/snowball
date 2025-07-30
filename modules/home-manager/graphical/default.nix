@@ -34,5 +34,7 @@
     # LaTeX.
     texliveFull
     enter-tex
+
+    obs-studio
   ];
 }
