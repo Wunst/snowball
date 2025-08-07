@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./roles/workstation.nix
     ./users/ben
@@ -6,4 +7,3 @@
     ./services/pipewire.nix
   ];
 }
-
