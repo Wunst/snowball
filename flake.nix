@@ -36,5 +36,13 @@
 
       # Configure `nix fmt`.
       formatter.${system} = pkgs.nixfmt-tree;
+
+      nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./nixos/modules
+          ./nixos/systems/wunstpc
+        ];
+      };
     };
 }
