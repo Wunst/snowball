@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run formatting.
+nix fmt
+git update-index --again
