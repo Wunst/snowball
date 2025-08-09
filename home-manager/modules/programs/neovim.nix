@@ -74,7 +74,8 @@ in
                   find_files = {
                     hidden = true,
                     file_ignore_patterns = {
-                      "\\.git" -- this is a regex, apparently
+                      -- ignore .git/
+                      "^%.git/" -- this is a weird lua pattern syntax, apparently
                     },
                   },
                 },
