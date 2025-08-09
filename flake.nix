@@ -43,6 +43,7 @@
           home-manager.nixosModules.home-manager
           ./nixos/modules
           ./nixos/systems/wunstpc
+          ./modules/allow-unfree.nix
         ];
       };
     };
