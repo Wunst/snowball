@@ -21,24 +21,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      pkgs.gh # GitHub credential helper.
-    ];
+    programs = {
+      git = {
+        enable = true;
+        inherit (cfg) userName userEmail;
 
-    programs.git = {
-      enable = true;
-      inherit (cfg) userName userEmail;
-
-      extraConfig = {
-        init.defaultBranch = "main";
-        push.autoSetupRemote = true;
-        url = {
-          # We can write GitHub URLs as `github:user/repo`.
-          "https://github.com/" = {
-            insteadOf = "github:";
+        extraConfig = {
+          init.defaultBranch = "main";
+          push.autoSetupRemote = true;
+          url = {
+            # We can write GitHub URLs as `github:user/repo`.
+            "https://github.com/" = {
+              insteadOf = "github:";
+            };
           };
         };
       };
+
+      gh.enable = true; # GitHub credential helper.
     };
   };
 }
