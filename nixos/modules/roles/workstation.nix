@@ -50,5 +50,17 @@ in
       ben.enable = true;
       users.root.hashedPassword = "!"; # Lock the root account.
     };
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users.ben = {
+        imports = [
+          ../../../home-manager/modules
+        ];
+        roles.workstation.enable = true;
+        home.stateVersion = config.system.stateVersion;
+      };
+    };
   };
 }

@@ -12,7 +12,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux"; # Used for the devShell.
       pkgs = import nixpkgs {
@@ -40,6 +40,7 @@
       nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          home-manager.nixosModules.home-manager
           ./nixos/modules
           ./nixos/systems/wunstpc
         ];
