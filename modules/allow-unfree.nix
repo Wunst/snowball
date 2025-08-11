@@ -6,5 +6,7 @@
       "synology-drive-client"
       "discord"
       "spotify"
+      "steam"
+      "steam-unwrapped"
     ];
 }

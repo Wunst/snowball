@@ -10,6 +10,8 @@
   # Add my system role.
   roles.workstation.enable = true;
 
+  roles.gaming.enable = true;
+
   # TODO: Refactor into a module
   # btrfs config. Generated hardware configuration includes btrfs subvolumes, but no other mount options.
   fileSystems = {
