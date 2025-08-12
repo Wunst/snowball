@@ -32,6 +32,12 @@ in
       my-openssh.enable = true;
       my-pipewire.enable = true;
 
+      # Enable docker host for development. Prune modules regularly.
+      my-docker = {
+        enable = true;
+        prune = "volumes";
+      };
+
       # TODO: Refactor into a module
       xserver = {
         enable = true;
