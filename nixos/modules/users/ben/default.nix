@@ -20,6 +20,7 @@ in
       extraGroups = [
         "wheel"
         "networkmanager"
+        "docker"
       ];
       openssh.authorizedKeys = {
         keyFiles = [
