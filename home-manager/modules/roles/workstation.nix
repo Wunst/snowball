@@ -16,6 +16,7 @@ in
       libreoffice-fresh
       synology-drive-client
       keepassxc
+      pandoc
 
       # Creative.
       gimp
@@ -32,6 +33,7 @@ in
       vlc
       ffmpeg-full
       spotify
+      yt-dlp
 
       # Scientific computing.
       wxmaxima
