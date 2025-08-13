@@ -10,6 +10,7 @@ in
       enable = true;
       keyMode = "vi";
       shortcut = "a";
+      terminal = "tmux-256color";
       mouse = true;
     };
   };
