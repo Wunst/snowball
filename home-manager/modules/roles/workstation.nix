@@ -84,5 +84,13 @@ in
     };
 
     # TODO: Configure mail accounts
+
+    theming = {
+      enableAll = true;
+      colors.theme = {
+        name = "solarized";
+        variant = "dark";
+      };
+    };
   };
 }

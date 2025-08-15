@@ -9,5 +9,6 @@
     ./programs/neovim.nix
     ./programs/firefox.nix
     ./programs/thunderbird.nix
+    ./theming
   ];
 }
