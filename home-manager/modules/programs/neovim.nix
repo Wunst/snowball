@@ -45,7 +45,6 @@ in
           vim.g.mapleader = " "
           vim.g.maplocalleader = ","
         '';
-      # TODO: base16 theming
 
       plugins = with pkgs.vimPlugins; [
         {

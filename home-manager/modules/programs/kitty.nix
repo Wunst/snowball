@@ -21,7 +21,6 @@ in
       };
       settings = {
         window_padding_width = 16;
-        # TODO: base16 theming
       };
     };
   };
