@@ -135,6 +135,20 @@ in
             ''
               local cmp = require("cmp")
 
+              local cmp_confirm = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+              })
+              -- don't confirm for signature help to allow new line without selecting argument name
+              local confirm = cmp.sync(function(fallback)
+              local e = cmp.core.view:get_selected_entry()
+                if e and e.source.name == "nvim_lsp_signature_help" then
+                  fallback() 
+                else
+                  cmp_confirm(fallback) 
+                end 
+              end)
+
               cmp.setup{
                 snippet = {
                   expand = function (args) vim.fn["vsnip#anonymous"](args.body) end,
@@ -147,8 +161,7 @@ in
 
                   ["<C-p>"] = cmp.mapping.select_prev_item(),
                   ["<C-n>"] = cmp.mapping.select_next_item(),
-
-                  ["<CR>"] = cmp.mapping.confirm({ select = false }), -- TODO: This is buggy sometimes
+                  ["<CR>"] = confirm,
                 },
                 sources = cmp.config.sources({
                   { name = "nvim_lsp" },
