@@ -84,10 +84,5 @@ in
     };
 
     # TODO: Configure mail accounts
-
-    theme.colors.theme = {
-      name = "solarized";
-      variant = "dark";
-    };
   };
 }

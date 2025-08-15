@@ -21,15 +21,8 @@ in
       };
       settings = {
         window_padding_width = 16;
-        foreground = "#${config.theme.colors.foreground}";
-        background = "#${config.theme.colors.background}";
-      }
-      // lib.listToAttrs (
-        lib.zipListsWith (n: color: {
-          name = "color${builtins.toString n}";
-          value = "#${color}";
-        }) (lib.range 0 15) config.theme.colors.colors
-      );
+        # TODO: base16 theming
+      };
     };
   };
 }
