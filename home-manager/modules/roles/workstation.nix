@@ -60,6 +60,9 @@ in
       # Network.
       inetutils
       wireshark-qt
+
+      # Nix language server.
+      nil
     ];
 
     programs = {
