@@ -44,6 +44,7 @@
           ./nixos/modules
           ./nixos/systems/wunstpc
           ./modules/allow-unfree.nix
+          ./modules/overlays.nix
         ];
       };
     };
