@@ -32,6 +32,8 @@ in
       my-openssh.enable = true;
       my-pipewire.enable = true;
 
+      my-printing.enable = true;
+
       # Enable docker host for development. Prune modules regularly.
       my-docker = {
         enable = true;
