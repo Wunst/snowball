@@ -27,10 +27,9 @@
             just
             nil # Nix language server.
           ];
-
           shellHook = ''
             echo Installing pre-commit hook…
-            cp --preserve=mode pre-commit-hook .git/hooks/pre-commit
+            cp --preserve=mode git/hooks/pre-commit .git/hooks/pre-commit
           '';
         };
 
