@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   programs.my-git = {
     enable = true;
     userName = "Ben Matthies";
@@ -28,7 +29,7 @@
           Hilfe für Ihr Mailprogramm: https://www.openpgp.org/software/
           Mein Public Key: https://keys.openpgp.org/search?q=matthiesbe@gmail.com
           Fingerprint: 55C7 85F0 91A0 9C19 B096 53A5 015E 6B99 2731 C5B8
-          
+
           Damit ich Ihnen verschlüsselt antworten kann, müssen Sie Ihren eigenen (von
           Ihnen erzeugten) Public Key entweder mitschicken oder auf keys.openpgp.org 
           registrieren. '';
@@ -93,7 +94,7 @@
       thunderbird.enable = true;
     };
   };
-   
+
   theming = {
     enableAll = true;
     colors.theme = {

@@ -36,22 +36,30 @@
       # Configure `nix fmt`.
       formatter.${system} = pkgs.nixfmt-tree;
 
-      nixosConfigurations = 
+      nixosConfigurations =
         let
-          mkSystem = { system, hostName }: nixpkgs.lib.nixosSystem {
-            inherit system;
-            modules = [
-              home-manager.nixosModules.home-manager
-              ./nixos/modules
-              ./nixos/systems/${hostName}
-              ./modules/allow-unfree.nix
-              ./modules/overlays.nix
-            ];
-          };
-        in {
+          mkSystem =
+            { system, hostName }:
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              modules = [
+                home-manager.nixosModules.home-manager
+                ./nixos/modules
+                ./nixos/systems/${hostName}
+                ./modules/allow-unfree.nix
+                ./modules/overlays.nix
+              ];
+            };
+        in
+        {
           wunstpc = mkSystem {
             system = "x86_64-linux";
             hostName = "wunstpc";
+          };
+
+          wunstasus = mkSystem {
+            system = "x86_64-linux";
+            hostName = "wunstasus";
           };
         };
     };
