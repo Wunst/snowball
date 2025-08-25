@@ -71,12 +71,6 @@ in
       my-tmux.enable = true;
       my-kitty.enable = true;
 
-      my-git = {
-        enable = true;
-        userName = "Ben Matthies";
-        userEmail = "matthiesbe@gmail.com";
-      };
-
       my-neovim = {
         enable = true;
         defaultEditor = true;
@@ -84,16 +78,6 @@ in
 
       my-firefox.enable = true;
       my-thunderbird.enable = true;
-    };
-
-    # TODO: Configure mail accounts
-
-    theming = {
-      enableAll = true;
-      colors.theme = {
-        name = "solarized";
-        variant = "dark";
-      };
     };
   };
 }

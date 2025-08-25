@@ -22,9 +22,16 @@ in
 
     networking.networkmanager.enable = true;
 
+    # Localization.
     time.timeZone = "Europe/Berlin";
-    # TODO: Configure locale
-    # I really want LANG=C, but week starting on Monday and metric units everywhere, including in LibreOffice which is weird in other ways
+    i18n = {
+      # English language, continental European measurements, calendar…
+      defaultLocale = "en_DK.UTF-8";
+      extraLocaleSettings = {
+        # Euro.
+        LC_MONETARY = "de_DE.UTF-8";
+      };
+    };
 
     services = {
       fwupd.enable = true;
@@ -65,6 +72,7 @@ in
       users.ben = {
         imports = [
           ../../../home-manager/modules
+          ../../../home-manager/users/ben.nix
         ];
         roles.workstation.enable = true;
         home.stateVersion = config.system.stateVersion;

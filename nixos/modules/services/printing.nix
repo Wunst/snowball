@@ -18,16 +18,16 @@ in
     };
 
     # Declare my printers.
-    hardware.printers.ensurePrinters = [
-      {
-        name = "Matthies_ColorLaserJet";
-        location = "";
-        model = "everywhere"; # Generic IPP Everywhere.
-        deviceUri = "ipp://DruckerM281fdw:631/ipp/print";
-        ppdOptions = {
-          PageSize = "A4";
-        };
-      }
-    ];
+    #hardware.printers.ensurePrinters = [
+    #  {
+    #    name = "Matthies_ColorLaserJet";
+    #    location = "";
+    #    model = "everywhere"; # Generic IPP Everywhere.
+    #    deviceUri = "ipp://DruckerM281fdw:631/ipp/print";
+    #    ppdOptions = {
+    #      PageSize = "A4";
+    #    };
+    #  }
+    #];
   };
 }
