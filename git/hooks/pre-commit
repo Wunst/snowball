@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo Formatting with nix fmt…
+nix fmt
+git update-index --again
+
