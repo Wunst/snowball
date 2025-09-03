@@ -21,6 +21,7 @@
       self,
       nixpkgs,
       home-manager,
+      sops-nix,
       ...
     }:
     let
@@ -36,6 +37,10 @@
         buildInputs = with pkgs; [
           just
           nil
+          sops
+          age
+          age-plugin-fido2-hmac
+          ssh-to-age
         ];
 
         shellHook = ''
@@ -56,6 +61,7 @@
         modules = [
           self.nixosModules.default
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.default
 
           (
             { config, pkgs, ... }:
@@ -81,6 +87,21 @@
                 options = "caps:escape";
               };
 
+              # Declare secrets.
+              sops = {
+                defaultSopsFile = ./secrets.wunstpc.yml;
+                age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                secrets = {
+                  hashedPassword = {
+                    neededForUsers = true;
+                  };
+
+                  githubToken = {
+                    owner = "ben";
+                  };
+                };
+              };
+
               # User configuration.
               # Add Nix profiles to zsh, and zsh to the list of allowed shells.
               programs.zsh.enable = true;
@@ -97,6 +118,7 @@
                 openssh.authorizedKeys.keyFiles = [
                   ./authorized_keys
                 ];
+                hashedPasswordFile = config.sops.secrets.hashedPassword.path;
               };
 
               home-manager = {
@@ -114,6 +136,7 @@
                       enable = true;
                       userName = "Ben Matthies";
                       userEmail = "matthiesbe@gmail.com";
+                      githubTokenFile = config.sops.secrets.githubToken.path;
                     };
                     bm-neovim = {
                       enable = true;
