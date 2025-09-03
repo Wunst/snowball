@@ -23,7 +23,19 @@ in
       bm-openssh.enable = true;
 
       # Graphical target.
-      bm-display-manager.enable = true;
+      # TODO: Refactor to support different window managers.
+      displayManager = {
+        defaultSession = "plasmax11";
+        gdm = {
+          enable = true;
+
+          # Suspending kills my machine with proprietary nvidia drivers.
+          autoSuspend = true;
+        };
+      };
+      desktopManager.plasma6.enable = true;
+      xserver.enable = true;
+
       bm-pipewire.enable = true;
       bm-printing.enable = true;
 
