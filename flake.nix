@@ -86,6 +86,7 @@
             };
           }
           ./nixos/systems/wunstpc
+          ./allow-unfree.nix
         ];
       };
     };
