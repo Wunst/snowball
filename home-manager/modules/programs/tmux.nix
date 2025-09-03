@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.programs.tmux;
+  cfg = config.programs.bm-tmux;
 in
 {
   options.programs.bm-tmux = with lib; {

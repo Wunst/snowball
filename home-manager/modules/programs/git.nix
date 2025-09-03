@@ -18,13 +18,16 @@ in
 
     githubTokenFile = mkOption {
       description = "Path to GitHub token file, in my case from sops-nix.";
-      type = types.str;
+      type = with types; nullOr str;
+      default = null;
     };
   };
 
   config = lib.mkIf cfg.enable {
     # Supply OAuth token.
-    home.sessionVariables.GITHUB_TOKEN = "$(cat ${cfg.githubTokenFile})";
+    home.sessionVariables = lib.mkIf (cfg.githubTokenFile != null) {
+      GITHUB_TOKEN = "$(cat ${cfg.githubTokenFile})";
+    };
 
     programs = {
       git = {

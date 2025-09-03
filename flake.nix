@@ -17,7 +17,12 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     let
       # Used for the development environment.
       pkgs = import nixpkgs {
@@ -50,42 +55,78 @@
         system = "x86_64-linux";
         modules = [
           self.nixosModules.default
-          {
-            # Modules are for reusable stuff, my personal config goes here.
-            # Localization.
-            i18n = {
-              # English language locale with metric units, A4 paper, week starting on Monday…
-              defaultLocale = "en_DK.UTF-8";
-              extraLocaleSettings = {
-                # Euro.
-                LC_MONETARY = "de_DE.UTF-8";
+          home-manager.nixosModules.home-manager
+
+          (
+            { config, pkgs, ... }:
+            {
+              # Modules are for reusable stuff, my personal config goes here.
+              # Localization.
+              i18n = {
+                # English language locale with metric units, A4 paper, week starting on Monday…
+                defaultLocale = "en_DK.UTF-8";
+                extraLocaleSettings = {
+                  # Euro.
+                  LC_MONETARY = "de_DE.UTF-8";
+                };
               };
-            };
 
-            time.timeZone = "Europe/Berlin";
+              time.timeZone = "Europe/Berlin";
 
-            # Configure keyboard layout.
-            console.useXkbConfig = true;
-            services.xserver.xkb = {
-              layout = "de";
-              variant = "";
-              options = "caps:escape";
-            };
+              # Configure keyboard layout.
+              console.useXkbConfig = true;
+              services.xserver.xkb = {
+                layout = "de";
+                variant = "";
+                options = "caps:escape";
+              };
 
-            # User configuration.
-            users.users.ben = {
-              isNormalUser = true;
-              description = "Ben";
-              extraGroups = [
-                "wheel"
-                "networkmanager"
-                "docker"
-              ];
-              openssh.authorizedKeys.keyFiles = [
-                ./authorized_keys
-              ];
-            };
-          }
+              # User configuration.
+              # Add Nix profiles to zsh, and zsh to the list of allowed shells.
+              programs.zsh.enable = true;
+
+              users.users.ben = {
+                isNormalUser = true;
+                description = "Ben";
+                shell = pkgs.zsh;
+                extraGroups = [
+                  "wheel"
+                  "networkmanager"
+                  "docker"
+                ];
+                openssh.authorizedKeys.keyFiles = [
+                  ./authorized_keys
+                ];
+              };
+
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+
+                # Home configuration.
+                users.ben = {
+                  imports = [
+                    self.homeManagerModules.default
+                  ];
+
+                  programs = {
+                    bm-git = {
+                      enable = true;
+                      userName = "Ben Matthies";
+                      userEmail = "matthiesbe@gmail.com";
+                    };
+                    bm-neovim = {
+                      enable = true;
+                      defaultEditor = true;
+                    };
+                  };
+
+                  home.stateVersion = config.system.stateVersion;
+                };
+              };
+            }
+          )
+
           ./nixos/systems/wunstpc
           ./allow-unfree.nix
         ];

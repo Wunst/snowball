@@ -1,4 +1,5 @@
 {
+  osConfig,
   config,
   lib,
   pkgs,
@@ -9,7 +10,11 @@ let
 in
 {
   options.bm-profiles.workstation = with lib; {
-    enable = mkEnableOption "the workstation profile";
+    enable = mkOption {
+      description = "Whether to enable the workstation profile";
+      type = types.bool;
+      default = osConfig.bm-profiles.workstation.enable or false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
