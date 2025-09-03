@@ -17,7 +17,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { self, nixpkgs, ... }:
     let
       # Used for the development environment.
       pkgs = import nixpkgs {
@@ -41,5 +41,52 @@
 
       # Configure `nix fmt` command.
       formatter.x86_64-linux = pkgs.nixfmt-tree;
+
+      # Export NixOS modules. Someone might want to use those.
+      nixosModules.default = import ./nixos/modules;
+
+      nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          self.nixosModules.default
+          {
+            # Modules are for reusable stuff, my personal config goes here.
+            # Localization.
+            i18n = {
+              # English language locale with metric units, A4 paper, week starting on Monday…
+              defaultLocale = "en_DK.UTF-8";
+              extraLocaleSettings = {
+                # Euro.
+                LC_MONETARY = "de_DE.UTF-8";
+              };
+            };
+
+            time.timeZone = "Europe/Berlin";
+
+            # Configure keyboard layout.
+            console.useXkbConfig = true;
+            services.xserver.xkb = {
+              layout = "de";
+              variant = "";
+              options = "caps:escape";
+            };
+
+            # User configuration.
+            users.users.ben = {
+              isNormalUser = true;
+              description = "Ben";
+              extraGroups = [
+                "wheel"
+                "networkmanager"
+                "docker"
+              ];
+              openssh.authorizedKeys.keyFiles = [
+                ./authorized_keys
+              ];
+            };
+          }
+          ./nixos/systems/wunstpc
+        ];
+      };
     };
 }
