@@ -44,6 +44,7 @@
 
       # Export NixOS modules. Someone might want to use those.
       nixosModules.default = import ./nixos/modules;
+      homeManagerModules.default = import ./home-manager/modules;
 
       nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
