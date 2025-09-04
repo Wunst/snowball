@@ -38,7 +38,7 @@ in
       discord
 
       # Multimedia.
-      spotify
+      spotify-spotx
       yt-dlp
 
       # Scientific computing.

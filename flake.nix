@@ -56,6 +56,20 @@
       nixosModules.default = import ./nixos/modules;
       homeManagerModules.default = import ./home-manager/modules;
 
+      # My custom or modified packages.
+      packages = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.all (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in
+        import ./pkgs pkgs
+      );
+
+      # … and again as an overlay …
+      overlays.default = final: prev: import ./pkgs prev;
+
       nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -66,6 +80,10 @@
           (
             { config, pkgs, ... }:
             {
+              nixpkgs.overlays = [
+                self.overlays.default
+              ];
+
               # Modules are for reusable stuff, my personal config goes here.
               # My window manager.
               bm-profiles.workstation.windowManager = "plasma6";
