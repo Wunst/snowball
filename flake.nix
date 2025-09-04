@@ -67,6 +67,9 @@
             { config, pkgs, ... }:
             {
               # Modules are for reusable stuff, my personal config goes here.
+              # My window manager.
+              bm-profiles.workstation.windowManager = "plasma6";
+
               # Localization.
               i18n = {
                 # English language locale with metric units, A4 paper, week starting on Monday…

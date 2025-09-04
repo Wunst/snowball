@@ -5,6 +5,13 @@ in
 {
   options.bm-profiles.workstation = with lib; {
     enable = mkEnableOption "the workstation profile";
+
+    windowManager = mkOption {
+      description = "Which window manager to use. At least one must be selected.";
+      type = types.enum [
+        "plasma6"
+      ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -23,18 +30,10 @@ in
       bm-openssh.enable = true;
 
       # Graphical target.
-      # TODO: Refactor to support different window managers.
-      displayManager = {
-        defaultSession = "plasmax11";
-        gdm = {
-          enable = true;
-
-          # Suspending kills my machine with proprietary nvidia drivers.
-          autoSuspend = true;
-        };
+      bm-display-manager.enable = true;
+      bm-window-manager = {
+        plasma6.enable = cfg.windowManager == "plasma6";
       };
-      desktopManager.plasma6.enable = true;
-      xserver.enable = true;
 
       bm-pipewire.enable = true;
       bm-printing.enable = true;
