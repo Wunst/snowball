@@ -28,7 +28,6 @@ in
       # Creative.
       gimp
       krita
-      inkscape
       blender
       audacity
       obs-studio
@@ -39,8 +38,6 @@ in
       discord
 
       # Multimedia.
-      vlc
-      ffmpeg-full
       spotify
       yt-dlp
 
@@ -73,27 +70,11 @@ in
 
       bm-tmux.enable = true;
       bm-kitty.enable = true;
+
+      bm-inkscape.enable = true;
       bm-firefox.enable = true;
       bm-thunderbird.enable = true;
-    };
-
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "application/pdf" = "firefox.desktop";
-
-        "image/svg+xml" = "org.inkscape.Inkscape.desktop";
-
-        "audio/aac" = "vlc.desktop";
-        "audio/mpeg" = "vlc.desktop";
-        "audio/ogg" = "vlc.desktop";
-        "audio/wav" = "vlc.desktop";
-        "audio/webm" = "vlc.desktop";
-
-        "video/mpeg" = "vlc.desktop";
-        "video/ogg" = "vlc.desktop";
-        "video/webm" = "vlc.desktop";
-      };
+      bm-vlc.enable = true;
     };
   };
 }
