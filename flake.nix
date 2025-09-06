@@ -116,8 +116,15 @@
                   hashedPassword = {
                     neededForUsers = true;
                   };
-
                   githubToken = {
+                    owner = "ben";
+                  };
+                  "gpg/privateKeys/015E6B992731C5B8" = {
+                    # Private key for matthiesbe@gmail.com.
+                    owner = "ben";
+                  };
+                  "gpg/privateKeys/995B0CAE47D0D637" = {
+                    # Private key for ben.matthies@stu.uni-kiel.de.
                     owner = "ben";
                   };
                 };
@@ -153,6 +160,23 @@
                   ];
 
                   programs = {
+                    # TODO: Only enable on targets where it's needed.
+                    gpg = {
+                      enable = true;
+
+                      # The option is called `publicKeys`, but works for `privateKeys` as well apparently?
+                      publicKeys = [
+                        {
+                          source = config.sops.secrets."gpg/privateKeys/015E6B992731C5B8".path;
+                          trust = "full";
+                        }
+                        {
+                          source = config.sops.secrets."gpg/privateKeys/995B0CAE47D0D637".path;
+                          trust = "full";
+                        }
+                      ];
+                    };
+
                     bm-git = {
                       enable = true;
                       userName = "Ben Matthies";
