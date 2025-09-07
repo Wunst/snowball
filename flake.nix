@@ -1,5 +1,5 @@
 {
-  description = "Ben's NixOS + home-manager + sops-nix configuration";
+  description = "Ben's NixOS + home-manager + sops-nix + disko configuration";
 
   inputs = {
     # I previously used a `git+https` URL to shallow clone here, but the `github` URL syntax already uses the tarball to speed up downloads.
@@ -14,6 +14,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -22,6 +27,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      disko,
       ...
     }:
     let
@@ -76,6 +82,7 @@
           self.nixosModules.default
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.default
+          disko.nixosModules.disko
 
           (
             { config, pkgs, ... }:

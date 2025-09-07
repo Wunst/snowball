@@ -3,6 +3,8 @@ keys:
     age1fido2-hmac1qqpds23cvn9m7xrljfpkp4heshzmmlvljrheds0xgm9waww478j6sfspckas4wnw82tqfjmx8uym5hyfumj5v927gnwkaqzmc0ca0cvlwjz36lfykyy4euh23jzck4j0urvp2wsvn4gcthac6rtujlf8fxfu5vvqtl65nawxauaz9hs6gdkwysgsyp5x82kussqvk6jt3azgl6g02gfd3p564htwafz9emau29zf4d8z3fs02dd6fa8qj6j0kquz86h2jmqya6e
   - &wunstpc >- 
     age1q2ddl3x2jqhfgp44je4vd7069p5ehuwy2wfvhgw4dn8z27vnnp8s84eep3
+  - &wunstasus >-
+    age1thzhrmu9f88f09mr3vjn7jxxke7uzttzllhqef04hy69m0jla35qq3n86d
 
 creation_rules:
   - path_regex: \.wunstpc\.yml
@@ -10,3 +12,8 @@ creation_rules:
     - age:
       - *ben
       - *wunstpc
+  - path_regex: \.wunstasus\.yml
+    key_groups:
+    - age:
+      - *ben
+      - *wunstasus
