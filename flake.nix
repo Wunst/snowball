@@ -279,14 +279,29 @@
                         thunderbird.enable = true;
                       };
                     };
-                    calendar.accounts."1 personal" = {
-                      primary = true;
-                      remote = {
-                        type = "caldav";
-                        url = "https://apidata.googleusercontent.com/caldav/v2/chiispr5e9mm2rh3d1nmoqb4c5sk0pridtqn0bjm5phm2r35dpi62shectnmuprcckn66rrd%40virtual/events/";
-                        userName = "matthiesbe@gmail.com";
+
+                    calendar.accounts = {
+                      "1 personal" = {
+                        primary = true;
+                        remote = {
+                          type = "caldav";
+                          url = "https://apidata.googleusercontent.com/caldav/v2/matthiesbe%40gmail.com/events/";
+                          userName = "matthiesbe@gmail.com";
+                        };
+                        thunderbird.enable = true;
                       };
-                      thunderbird.enable = true;
+
+                      "2 holidays" = {
+                        remote = {
+                          type = "caldav";
+                          url = "https://apidata.googleusercontent.com/caldav/v2/chiispr5e9mm2rh3d1nmoqb4c5sk0pridtqn0bjm5phm2r35dpi62shectnmuprcckn66rrd%40virtual/events/";
+                          userName = "matthiesbe@gmail.com";
+                        };
+                        thunderbird = {
+                          enable = true;
+                          color = "#00ff66";
+                        };
+                      };
                     };
                   };
 
