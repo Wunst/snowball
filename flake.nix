@@ -76,251 +76,267 @@
       # … and again as an overlay …
       overlays.default = final: prev: import ./pkgs prev;
 
-      nixosConfigurations.wunstpc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          self.nixosModules.default
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.default
-          disko.nixosModules.disko
+      nixosConfigurations =
+        let
+          mkSystem =
+            { system, hostname }:
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              modules = [
+                self.nixosModules.default
+                home-manager.nixosModules.home-manager
+                sops-nix.nixosModules.default
+                disko.nixosModules.disko
 
-          (
-            { config, pkgs, ... }:
-            {
-              nixpkgs.overlays = [
-                self.overlays.default
-              ];
+                (
+                  { config, pkgs, ... }:
+                  {
+                    nixpkgs.overlays = [
+                      self.overlays.default
+                    ];
 
-              # Modules are for reusable stuff, my personal config goes here.
-              # My window manager.
-              bm-profiles.workstation.windowManager = "plasma6";
+                    # Modules are for reusable stuff, my personal config goes here.
+                    # My window manager.
+                    bm-profiles.workstation.windowManager = "plasma6";
 
-              # Localization.
-              i18n = {
-                # English language locale with metric units, A4 paper, week starting on Monday…
-                defaultLocale = "en_DK.UTF-8";
-                extraLocaleSettings = {
-                  # Euro.
-                  LC_MONETARY = "de_DE.UTF-8";
-                };
-              };
+                    # Localization.
+                    i18n = {
+                      # English language locale with metric units, A4 paper, week starting on Monday…
+                      defaultLocale = "en_DK.UTF-8";
+                      extraLocaleSettings = {
+                        # Euro.
+                        LC_MONETARY = "de_DE.UTF-8";
+                      };
+                    };
 
-              time.timeZone = "Europe/Berlin";
+                    time.timeZone = "Europe/Berlin";
 
-              # Configure keyboard layout.
-              console.useXkbConfig = true;
-              services.xserver.xkb = {
-                layout = "de";
-                variant = "";
-                options = "caps:escape";
-              };
+                    # Configure keyboard layout.
+                    console.useXkbConfig = true;
+                    services.xserver.xkb = {
+                      layout = "de";
+                      variant = "";
+                      options = "caps:escape";
+                    };
 
-              # Declare secrets.
-              sops = {
-                defaultSopsFile = ./secrets.wunstpc.yml;
-                age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-                secrets = {
-                  hashedPassword = {
-                    neededForUsers = true;
-                  };
-                  githubToken = {
-                    owner = "ben";
-                  };
-                  "gpg/privateKeys/015E6B992731C5B8" = {
-                    # Private key for matthiesbe@gmail.com.
-                    owner = "ben";
-                  };
-                  "gpg/privateKeys/995B0CAE47D0D637" = {
-                    # Private key for ben.matthies@stu.uni-kiel.de.
-                    owner = "ben";
-                  };
-                };
-              };
+                    # Declare secrets.
+                    sops = {
+                      defaultSopsFile = ./secrets.${hostname}.yml;
+                      age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                      secrets = {
+                        hashedPassword = {
+                          neededForUsers = true;
+                        };
+                        githubToken = {
+                          owner = "ben";
+                        };
+                        "gpg/privateKeys/015E6B992731C5B8" = {
+                          # Private key for matthiesbe@gmail.com.
+                          owner = "ben";
+                        };
+                        "gpg/privateKeys/995B0CAE47D0D637" = {
+                          # Private key for ben.matthies@stu.uni-kiel.de.
+                          owner = "ben";
+                        };
+                      };
+                    };
 
-              # User configuration.
-              # Add Nix profiles to zsh, and zsh to the list of allowed shells.
-              programs.zsh.enable = true;
+                    # User configuration.
+                    # Add Nix profiles to zsh, and zsh to the list of allowed shells.
+                    programs.zsh.enable = true;
 
-              users.users.ben = {
-                isNormalUser = true;
-                description = "Ben";
-                shell = pkgs.zsh;
-                extraGroups = [
-                  "wheel"
-                  "networkmanager"
-                  "docker"
-                ];
-                openssh.authorizedKeys.keyFiles = [
-                  ./authorized_keys
-                ];
-                hashedPasswordFile = config.sops.secrets.hashedPassword.path;
-              };
-
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-
-                # Home configuration.
-                users.ben = {
-                  imports = [
-                    self.homeManagerModules.default
-                  ];
-
-                  programs = {
-                    # TODO: Only enable on targets where it's needed.
-                    gpg = {
-                      enable = true;
-
-                      # The option is called `publicKeys`, but works for `privateKeys` as well apparently?
-                      publicKeys = [
-                        {
-                          source = config.sops.secrets."gpg/privateKeys/015E6B992731C5B8".path;
-                          trust = "full";
-                        }
-                        {
-                          source = config.sops.secrets."gpg/privateKeys/995B0CAE47D0D637".path;
-                          trust = "full";
-                        }
+                    users.users.ben = {
+                      isNormalUser = true;
+                      description = "Ben";
+                      shell = pkgs.zsh;
+                      extraGroups = [
+                        "wheel"
+                        "networkmanager"
+                        "docker"
                       ];
+                      openssh.authorizedKeys.keyFiles = [
+                        ./authorized_keys
+                      ];
+                      hashedPasswordFile = config.sops.secrets.hashedPassword.path;
                     };
 
-                    bm-git = {
-                      enable = true;
-                      userName = "Ben Matthies";
-                      userEmail = "matthiesbe@gmail.com";
-                      githubTokenFile = config.sops.secrets.githubToken.path;
-                    };
-                    bm-neovim = {
-                      enable = true;
-                      defaultEditor = true;
-                    };
-                  };
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
 
-                  # Mail accounts.
-                  accounts = {
-                    email.accounts = {
-                      "1 personal" = {
-                        primary = true;
-                        address = "matthiesbe@gmail.com";
-                        realName = "Ben Matthies";
-                        flavor = "gmail.com";
-                        gpg = {
-                          key = "015E6B992731C5B8";
-                          encryptByDefault = true;
-                          signByDefault = true;
-                        };
-                        signature = {
-                          showSignature = "append";
-                          delimiter = "~*~-~*~-~*~-~*~";
-                          text = ''
-                            Ben Matthies
-                            -
-                            Sie können mir mit OpenPGP verschlüsselte Nachrichten schicken. Sie sollten
-                            Ihre Nachrichten verschlüsseln, wenn Sie Bedenken haben, dass Ihr oder mein 
-                            Mailanbieter (Google Mail) Ihre Nachricht mitliest.
-                            Hilfe für Ihr Mailprogramm: https://www.openpgp.org/software/
-                            Mein Public Key: https://keys.openpgp.org/search?q=matthiesbe@gmail.com
-                            Fingerprint: 55C7 85F0 91A0 9C19 B096 53A5 015E 6B99 2731 C5B8
+                      # Home configuration.
+                      users.ben = {
+                        imports = [
+                          self.homeManagerModules.default
+                        ];
 
-                            Damit ich Ihnen verschlüsselt antworten kann, müssen Sie Ihren eigenen (von
-                            Ihnen erzeugten) Public Key entweder mitschicken oder auf keys.openpgp.org 
-                            registrieren. '';
-                        };
-                        thunderbird = {
-                          enable = true;
-                          settings = id: {
-                            # More sane archive location than Gmail "All messages"
-                            "mail.identity.id_${id}.archive_folder" = "imap://matthiesbe%40gmail.com@imap.gmail.com/Archiv";
+                        programs = {
+                          # TODO: Only enable on targets where it's needed.
+                          gpg = {
+                            enable = true;
+
+                            # The option is called `publicKeys`, but works for `privateKeys` as well apparently?
+                            publicKeys = [
+                              {
+                                source = config.sops.secrets."gpg/privateKeys/015E6B992731C5B8".path;
+                                trust = "full";
+                              }
+                              {
+                                source = config.sops.secrets."gpg/privateKeys/995B0CAE47D0D637".path;
+                                trust = "full";
+                              }
+                            ];
+                          };
+
+                          bm-git = {
+                            enable = true;
+                            userName = "Ben Matthies";
+                            userEmail = "matthiesbe@gmail.com";
+                            githubTokenFile = config.sops.secrets.githubToken.path;
+                          };
+                          bm-neovim = {
+                            enable = true;
+                            defaultEditor = true;
                           };
                         };
-                      };
 
-                      "2 school" = {
-                        address = "ben.matthies@mps-ki.de";
-                        realName = "Ben Matthies";
-                        userName = "ben.matthies";
-                        smtp = {
-                          host = "mps-ki.de";
-                          port = 465;
-                        };
-                        imap = {
-                          host = "mps-ki.de";
-                          port = 993;
-                        };
-                        signature = {
-                          showSignature = "append";
-                          text = ''
-                            Ben Matthies
-                            Admin AG
-                            Max-Planck-Schule Kiel
-                            Winterbeker Weg 1, 24114 Kiel '';
-                        };
-                        thunderbird.enable = true;
-                      };
+                        # Mail accounts.
+                        accounts = {
+                          email.accounts = {
+                            "1 personal" = {
+                              primary = true;
+                              address = "matthiesbe@gmail.com";
+                              realName = "Ben Matthies";
+                              flavor = "gmail.com";
+                              gpg = {
+                                key = "015E6B992731C5B8";
+                                encryptByDefault = true;
+                                signByDefault = true;
+                              };
+                              signature = {
+                                showSignature = "append";
+                                delimiter = "~*~-~*~-~*~-~*~";
+                                text = ''
+                                  Ben Matthies
+                                  -
+                                  Sie können mir mit OpenPGP verschlüsselte Nachrichten schicken. Sie sollten
+                                  Ihre Nachrichten verschlüsseln, wenn Sie Bedenken haben, dass Ihr oder mein 
+                                  Mailanbieter (Google Mail) Ihre Nachricht mitliest.
+                                  Hilfe für Ihr Mailprogramm: https://www.openpgp.org/software/
+                                  Mein Public Key: https://keys.openpgp.org/search?q=matthiesbe@gmail.com
+                                  Fingerprint: 55C7 85F0 91A0 9C19 B096 53A5 015E 6B99 2731 C5B8
 
-                      "3 uni" = {
-                        address = "ben.matthies@stu.uni-kiel.de";
-                        realName = "Ben Matthies";
-                        userName = "stu249890";
-                        gpg = {
-                          key = "995B0CAE47D0D637";
-                          encryptByDefault = true;
-                          signByDefault = true;
+                                  Damit ich Ihnen verschlüsselt antworten kann, müssen Sie Ihren eigenen (von
+                                  Ihnen erzeugten) Public Key entweder mitschicken oder auf keys.openpgp.org 
+                                  registrieren. '';
+                              };
+                              thunderbird = {
+                                enable = true;
+                                settings = id: {
+                                  # More sane archive location than Gmail "All messages"
+                                  "mail.identity.id_${id}.archive_folder" = "imap://matthiesbe%40gmail.com@imap.gmail.com/Archiv";
+                                };
+                              };
+                            };
+
+                            "2 school" = {
+                              address = "ben.matthies@mps-ki.de";
+                              realName = "Ben Matthies";
+                              userName = "ben.matthies";
+                              smtp = {
+                                host = "mps-ki.de";
+                                port = 465;
+                              };
+                              imap = {
+                                host = "mps-ki.de";
+                                port = 993;
+                              };
+                              signature = {
+                                showSignature = "append";
+                                text = ''
+                                  Ben Matthies
+                                  Admin AG
+                                  Max-Planck-Schule Kiel
+                                  Winterbeker Weg 1, 24114 Kiel '';
+                              };
+                              thunderbird.enable = true;
+                            };
+
+                            "3 uni" = {
+                              address = "ben.matthies@stu.uni-kiel.de";
+                              realName = "Ben Matthies";
+                              userName = "stu249890";
+                              gpg = {
+                                key = "995B0CAE47D0D637";
+                                encryptByDefault = true;
+                                signByDefault = true;
+                              };
+                              smtp = {
+                                host = "smtps.mail.uni-kiel.de";
+                                port = 465;
+                              };
+                              imap = {
+                                host = "imap.mail.uni-kiel.de";
+                                port = 993;
+                              };
+                              signature = {
+                                showSignature = "append";
+                                text = ''
+                                  Ben Matthies
+                                  Student der Physik (1Ba)
+                                  3. Fachsemester
+                                '';
+                              };
+                              thunderbird.enable = true;
+                            };
+                          };
+
+                          calendar.accounts = {
+                            "1 personal" = {
+                              primary = true;
+                              remote = {
+                                type = "caldav";
+                                url = "https://apidata.googleusercontent.com/caldav/v2/matthiesbe%40gmail.com/events/";
+                                userName = "matthiesbe@gmail.com";
+                              };
+                              thunderbird.enable = true;
+                            };
+
+                            "2 holidays" = {
+                              remote = {
+                                type = "caldav";
+                                url = "https://apidata.googleusercontent.com/caldav/v2/chiispr5e9mm2rh3d1nmoqb4c5sk0pridtqn0bjm5phm2r35dpi62shectnmuprcckn66rrd%40virtual/events/";
+                                userName = "matthiesbe@gmail.com";
+                              };
+                              thunderbird = {
+                                enable = true;
+                                color = "#00ff66";
+                              };
+                            };
+                          };
                         };
-                        smtp = {
-                          host = "smtps.mail.uni-kiel.de";
-                          port = 465;
-                        };
-                        imap = {
-                          host = "imap.mail.uni-kiel.de";
-                          port = 993;
-                        };
-                        signature = {
-                          showSignature = "append";
-                          text = ''
-                            Ben Matthies
-                            Student der Physik (1Ba)
-                            3. Fachsemester
-                          '';
-                        };
-                        thunderbird.enable = true;
+
+                        home.stateVersion = config.system.stateVersion;
                       };
                     };
+                  }
+                )
 
-                    calendar.accounts = {
-                      "1 personal" = {
-                        primary = true;
-                        remote = {
-                          type = "caldav";
-                          url = "https://apidata.googleusercontent.com/caldav/v2/matthiesbe%40gmail.com/events/";
-                          userName = "matthiesbe@gmail.com";
-                        };
-                        thunderbird.enable = true;
-                      };
+                ./nixos/systems/${hostname}
+                ./allow-unfree.nix
+              ];
+            };
+        in
+        {
+          wunstpc = mkSystem {
+            system = "x86_64-linux";
+            hostname = "wunstpc";
+          };
 
-                      "2 holidays" = {
-                        remote = {
-                          type = "caldav";
-                          url = "https://apidata.googleusercontent.com/caldav/v2/chiispr5e9mm2rh3d1nmoqb4c5sk0pridtqn0bjm5phm2r35dpi62shectnmuprcckn66rrd%40virtual/events/";
-                          userName = "matthiesbe@gmail.com";
-                        };
-                        thunderbird = {
-                          enable = true;
-                          color = "#00ff66";
-                        };
-                      };
-                    };
-                  };
-
-                  home.stateVersion = config.system.stateVersion;
-                };
-              };
-            }
-          )
-
-          ./nixos/systems/wunstpc
-          ./allow-unfree.nix
-        ];
-      };
+          wunstasus = mkSystem {
+            system = "x86_64-linux";
+            hostname = "wunstasus";
+          };
+        };
     };
 }
