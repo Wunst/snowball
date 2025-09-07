@@ -7,7 +7,10 @@
   networking.hostName = "wunstasus";
 
   # Declarative disk layout.
-  bm-disko.enable = true;
+  bm-disko = {
+    enable = true;
+    device = "/dev/nvme0n1";
+  };
 
   services.btrfs.autoScrub = {
     enable = true;
