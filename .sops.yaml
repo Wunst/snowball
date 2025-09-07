@@ -4,7 +4,7 @@ keys:
   - &wunstpc >- 
     age1q2ddl3x2jqhfgp44je4vd7069p5ehuwy2wfvhgw4dn8z27vnnp8s84eep3
   - &wunstasus >-
-    age1thzhrmu9f88f09mr3vjn7jxxke7uzttzllhqef04hy69m0jla35qq3n86d
+    age1da85fp4nqz9swvt7elxl40eye9g6gkzky45mrfqsruj0ds5wasmsk6nm95
 
 creation_rules:
   - path_regex: \.wunstpc\.yml
