@@ -11,7 +11,6 @@
     enable = true;
     device = "/dev/nvme0n1";
   };
-
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
@@ -20,7 +19,14 @@
   bm-profiles = {
     workstation.enable = true;
     gaming.enable = true;
+
+    laptop.enable = true;
   };
+
+  # Use suspend-to-RAM as waking from modern standby (suspend-to-idle) fails a lot of time.
+  systemd.sleep.extraConfig = ''
+    MemorySleepMode=deep
+  '';
 
   # Wireguard VPN to my home network.
   sops.secrets."wireguard/privateKey" = { };
