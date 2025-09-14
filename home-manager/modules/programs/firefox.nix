@@ -45,7 +45,7 @@ in
         # Some things can only be configured through the raw settings.
         Preferences = {
           # Firefox dumps PDF attachments in my downloads without prompting, WTF!
-          "browser.open_pdf_attachments_inline" = true;
+          "browser.download.open_pdf_attachments_inline" = true;
 
           # Disable translation popup, but don't disable translations entirely.
           "browser.translations.automaticallyPopup" = false;
