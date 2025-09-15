@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.bm-profiles.workstation;
 in
@@ -17,6 +22,9 @@ in
   config = lib.mkIf cfg.enable {
     bm-boot.enable = true;
     bm-nix.enable = true;
+
+    # Use latest kernel.
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
     # Enable wireless networking with NetworkManager.
     networking.networkmanager.enable = true;
