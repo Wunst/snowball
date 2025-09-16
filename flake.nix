@@ -96,9 +96,6 @@
                     ];
 
                     # Modules are for reusable stuff, my personal config goes here.
-                    # My window manager.
-                    bm-profiles.workstation.windowManager = "plasma6";
-
                     # Localization.
                     i18n = {
                       # English language locale with metric units, A4 paper, week starting on Monday…
@@ -113,10 +110,18 @@
 
                     # Configure keyboard layout.
                     console.useXkbConfig = true;
-                    services.xserver.xkb = {
-                      layout = "de";
-                      variant = "";
-                      options = "caps:escape";
+                    services = {
+                      xserver.xkb = {
+                        layout = "de";
+                        variant = "";
+                        options = "caps:escape";
+                      };
+
+                      # My window manager.
+                      bm-graphical = {
+                        displayManager = "sddm";
+                        windowManager = "plasma6";
+                      };
                     };
 
                     # Declare secrets.

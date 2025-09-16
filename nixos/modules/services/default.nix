@@ -1,10 +1,10 @@
 {
   imports = [
-    ./window-manager
-    ./display-manager.nix
     ./docker.nix
+    ./graphical.nix
     ./openssh.nix
     ./pipewire.nix
     ./printing.nix
+    ./tlp.nix
   ];
 }

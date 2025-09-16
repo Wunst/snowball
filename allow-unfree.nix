@@ -11,4 +11,7 @@
       "steam-unwrapped"
       "synology-drive-client"
     ];
+
+  # Update all firmware and microcode.
+  hardware.enableRedistributableFirmware = true;
 }
