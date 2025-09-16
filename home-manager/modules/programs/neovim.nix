@@ -47,6 +47,8 @@ in
 
           vim.g.mapleader = " "
           vim.g.maplocalleader = ","
+
+          vim.o.wrap = false
         '';
 
       plugins = with pkgs.vimPlugins; [
