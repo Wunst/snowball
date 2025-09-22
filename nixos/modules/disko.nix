@@ -12,7 +12,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     disko.devices.disk.main = {
       device = cfg.device;
       type = "disk";

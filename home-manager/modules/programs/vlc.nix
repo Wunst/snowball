@@ -23,11 +23,13 @@ in
       defaultApplications = {
         "audio/aac" = "vlc.desktop";
         "audio/mpeg" = "vlc.desktop";
+        "audio/mp4" = "vlc.desktop";
         "audio/ogg" = "vlc.desktop";
         "audio/wav" = "vlc.desktop";
         "audio/webm" = "vlc.desktop";
 
         "video/mpeg" = "vlc.desktop";
+        "video/mp4" = "vlc.desktop";
         "video/ogg" = "vlc.desktop";
         "video/webm" = "vlc.desktop";
       };
