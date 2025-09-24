@@ -25,10 +25,6 @@ in
       keepassxc
       ghostscript
 
-      # Backup.
-      # TODO: Learn more about native btrfs snapshots; have proper backups in a separate building.
-      timeshift
-
       # Creative.
       gimp
       krita

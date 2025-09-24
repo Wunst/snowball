@@ -5,6 +5,7 @@
     ./openssh.nix
     ./pipewire.nix
     ./printing.nix
+    ./timeshift.nix
     ./tlp.nix
   ];
 }

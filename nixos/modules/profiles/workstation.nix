@@ -28,6 +28,7 @@ in
       bm-graphical.enable = true;
       bm-pipewire.enable = true;
       bm-printing.enable = true;
+      bm-timeshift.enable = true;
 
       # Docker for development.
       bm-docker.enable = true;
