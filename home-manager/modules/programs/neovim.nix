@@ -116,7 +116,17 @@ in
               lspconfig.ts_ls.setup{}
               lspconfig.clangd.setup{}
               lspconfig.gdscript.setup{}
-              lspconfig.rust_analyzer.setup{}
+              lspconfig.rust_analyzer.setup{
+                settings = {
+                  ["rust-analyzer"] = {
+                    check = {
+                      ignore = {
+                        "dead_code",
+                      },
+                    },
+                  },
+                },
+              }
 
               vim.keymap.set("n", "gd", vim.lsp.buf.definition)
               vim.keymap.set("n", " ca", vim.lsp.buf.code_action)
